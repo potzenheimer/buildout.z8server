@@ -16,3 +16,11 @@ buildout profile **z8.cfg** to be explicit and potentially be able to run
 this simple webserver setup on several machines (via different profiles).
 
 
+Provided services:
+------------------
+
+* Nginx
+* Varnish
+* runscript
+* logrotation
+* supervisord (controlling the isntalled zope instances)
