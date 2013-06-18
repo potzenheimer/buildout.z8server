@@ -1,5 +1,5 @@
 {
-  "server": "6zu4",
+  "server": "zope8",
   "servername": "${hosts:public}",
   "sites": [
     {
