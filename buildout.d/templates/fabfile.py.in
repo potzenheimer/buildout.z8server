@@ -5,6 +5,7 @@ from fabric.api import run
 from fabric.api import task
 
 from ade25.fabfiles import project
+from ade25.fabfiles.server import controls
 from ade25.fabfiles import hotfix as hf
 
 env.use_ssh_config = True
@@ -28,6 +29,16 @@ env.hosted_sites = [
     '${sites:zope7}',
 ]
 
+env.hosted_sites_locations = [
+    '/opt/sites/${sites:zope1}/buildout.${sites:zope1}',
+    '/opt/sites/${sites:zope2}/buildout.${sites:zope2}',
+    '/opt/sites/${sites:zope3}/buildout.${sites:zope3}',
+    '/opt/sites/${sites:zope4}/buildout.${sites:zope4}',
+    '/opt/sites/${sites:zope5}/buildout.${sites:zope5}',
+    '/opt/sites/${sites:zope6}/buildout.${sites:zope6}',
+    '/opt/sites/${sites:zope7}/buildout.${sites:zope7}',
+]
+
 
 @task
 def restart():
@@ -38,23 +49,20 @@ def restart():
 
 @task
 def restart_nginx():
-    """ Restart all """
-    with cd(env.webserver):
-        run('nice bin/supervisorctl restart nginx')
+    """ Restart Nginx """
+    controls.restart_nginx()
 
 
 @task
 def restart_varnish():
-    """ Restart all """
-    with cd(env.webserver):
-        run('nice bin/supervisorctl restart varnish')
+    """ Restart Varnish """
+    controls.restart_varnish()
 
 
 @task
 def restart_haproxy():
-    """ Restart all """
-    with cd(env.webserver):
-        run('nice bin/supervisorctl restart haproxy')
+    """ Restart HAProxy """
+    controls.restart_haproxy()
 
 
 @task
@@ -81,7 +89,7 @@ def deploy():
 
 
 @task
-def hotfix():
+def hotfix(addon=None):
     """ Apply hotfix to all hosted sites """
     hf.prepare_sites()
     hf.process_hotfix()
