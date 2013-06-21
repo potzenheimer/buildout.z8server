@@ -22,5 +22,4 @@ var
 *.pyo
 *-ck.js
 .codeintel
-etc/**/*
 src/ade25.fabfiles
