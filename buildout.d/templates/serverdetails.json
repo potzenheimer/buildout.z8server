@@ -43,6 +43,6 @@
       "type": "plone",
       "port": "${ports:zope7}",
       "url": "${hosts:zope7}"
-    },
+    }
   ]
 }
